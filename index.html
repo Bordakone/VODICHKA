@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+    
+    <!-- Primary Meta Tags -->
+    <title>VODICHKA CREW | Creative & Production Team</title>
+    <meta name="title" content="VODICHKA CREW | Creative & Production Team" />
+    <meta name="description" content="Креативная команда Vodichka Crew. Создаем рекламные ролики, спецпроекты, вирусный контент и AI-видео. Работаем с Wildberries, Лента, Триколор и другими брендами." />
+    <meta name="keywords" content="креативное агентство, продакшн, рекламные ролики, спецпроекты, AI видео, брендинг, creative agency, video production, advertising, viral content, vodichka crew" />
+    <meta name="author" content="Vodichka Crew" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://vodichkacrew.com/" />
+    <meta property="og:title" content="VODICHKA CREW | Creative & Production Team" />
+    <meta property="og:description" content="Креативная команда. Ролики, спецпроекты, AI-контент. Мы придумываем идеи и пьём водичку." />
+    <meta property="og:image" content="https://vodichkacrew.com/og-image.jpg" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://vodichkacrew.com/" />
+    <meta property="twitter:title" content="VODICHKA CREW | Creative & Production Team" />
+    <meta property="twitter:description" content="Креативная команда. Ролики, спецпроекты, AI-контент. Мы придумываем идеи и пьём водичку." />
+    <meta property="twitter:image" content="https://vodichkacrew.com/og-image.jpg" />
+
+    <!-- Robots -->
+    <meta name="robots" content="index, follow" />
+    
+    <!-- Theme Color for mobile browsers -->
+    <meta name="theme-color" content="#050505" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- IBM Plex Mono for technical data only. Helvetica is system font. -->
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              void: '#050505',
+              concrete: '#18181b', // zinc-900
+              cement: '#27272a', // zinc-800
+              radar: '#39ff14', // Neon Green (reinstated for accents)
+              critical: '#ef4444', // red-500
+            },
+            fontFamily: {
+              mono: ['"IBM Plex Mono"', 'monospace'],
+              display: ['"Helvetica Neue"', 'Helvetica', 'Arial', 'sans-serif'],
+            },
+            spacing: {
+              '128': '32rem',
+              '256': '64rem',
+            },
+            cursor: {
+              none: 'none',
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      body {
+        background-color: #050505;
+        color: #FFFFFF;
+        overflow-x: hidden;
+        cursor: none; /* Custom cursor implementation */
+      }
+      
+      /* Static Noise for Footer */
+      .bg-noise-static {
+        position: relative;
+      }
+      .bg-noise-static::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.15;
+        pointer-events: none;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
+        background-repeat: repeat;
+        mix-blend-mode: overlay;
+      }
+      
+      /* Custom Scrollbar to match brutalist theme */
+      ::-webkit-scrollbar {
+        width: 4px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #050505; 
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #27272a; 
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #39ff14; 
+      }
+
+      /* Utility for hiding cursor on touch devices if needed, though media queries handle logic */
+      @media (pointer: coarse) {
+        body {
+          cursor: auto;
+        }
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "lucide-react": "https://esm.sh/lucide-react@^0.563.0"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
