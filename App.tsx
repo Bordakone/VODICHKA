@@ -783,7 +783,7 @@ const FinalBlock = ({ ui }: { ui: typeof CONTENT.RU.UI }) => {
             </div>
 
             <div className="font-mono text-xs text-zinc-500 uppercase">
-              2025 MOSCOW
+              2026 MOSCOW
             </div>
          </div>
        </div>
