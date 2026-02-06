@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ArrowUpRight, Grid, Disc, Square, Activity, Hexagon, Crosshair, Droplets, Waves, Gauge, Copyright, BarChart3, Terminal, ArrowLeft, ArrowRight, ChevronRight, ChevronLeft, Cpu, ShieldCheck, Database } from 'lucide-react';
+import { ArrowUpRight, Grid, Disc, Activity, ArrowLeft, ArrowRight } from 'lucide-react';
 import { CONTENT } from './constants';
 import { Project, ViewState } from './types';
 
@@ -8,38 +8,7 @@ type Language = 'RU' | 'EN';
 
 // --- COMPONENTS ---
 
-// 1. Radar Cursor
-const RadarCursor = ({ label }: { label: string }) => {
-  const [position, setPosition] = useState({ x: -100, y: -100 });
-  const [isHovering, setIsHovering] = useState(false);
-
-  useEffect(() => {
-    const onMouseMove = (e: MouseEvent) => {
-      setPosition({ x: e.clientX, y: e.clientY });
-      const target = e.target as HTMLElement;
-      const isInteractive = target.closest('button') || target.closest('a') || target.dataset.interactive === 'true';
-      setIsHovering(!!isInteractive);
-    };
-
-    window.addEventListener('mousemove', onMouseMove);
-    return () => window.removeEventListener('mousemove', onMouseMove);
-  }, []);
-
-  if (typeof navigator !== 'undefined' && navigator.maxTouchPoints > 0) return null;
-
-  return (
-    <div 
-      className="fixed top-0 left-0 pointer-events-none z-[9999] mix-blend-exclusion"
-      style={{ transform: `translate3d(${position.x}px, ${position.y}px, 0)` }}
-    >
-      <div className={`absolute top-0 left-0 w-[1px] h-8 bg-radar -translate-y-4 transition-all duration-300 ${isHovering ? 'h-12' : 'opacity-50'}`} />
-      <div className={`absolute top-0 left-0 h-[1px] w-8 bg-radar -translate-x-4 transition-all duration-300 ${isHovering ? 'w-12' : 'opacity-50'}`} />
-      <div className={`absolute top-2 left-2 font-mono text-[10px] text-radar whitespace-nowrap transition-opacity duration-200 ${isHovering ? 'opacity-100' : 'opacity-0'}`}>
-        {label}
-      </div>
-    </div>
-  );
-};
+// 1. Radar Cursor — removed, using default cursor
 
 // 2. Navigation
 const NavBar = ({ 
@@ -436,12 +405,8 @@ const ProjectList = ({
         {/* Minimal Green Border for preview */}
         <div className="bg-void border border-radar/50 p-1 w-[480px]">
            <div className="flex justify-between items-center mb-1 border-b border-zinc-800 pb-1 px-1">
-             <div className="flex items-center gap-2">
-               <Crosshair size={12} className="text-radar animate-spin-slow" />
-               <span className="font-mono text-[10px] text-zinc-500">{ui.project_target_preview}</span>
-             </div>
-             {/* Dynamic Target display */}
-             <span className="font-mono text-[10px] text-white tracking-widest uppercase">{hoveredProject.target}</span>
+             <span className="font-mono text-[10px] text-white tracking-widest uppercase">{hoveredProject.title}</span>
+             <span className="font-mono text-[10px] text-zinc-500">{hoveredProject.status}</span>
            </div>
            <div className="relative aspect-video w-full bg-zinc-900 overflow-hidden">
               {hoveredProject.hoverVideoUrl ? (
@@ -500,7 +465,7 @@ const ProjectList = ({
               onClick={() => onSelect(project)}
               onMouseEnter={() => setHoveredProject(project)}
               onMouseLeave={() => setHoveredProject(null)}
-              className="group relative border-b border-zinc-900 transition-colors duration-200 cursor-none"
+              className="group relative border-b border-zinc-900 transition-colors duration-200 cursor-pointer"
             >
               {/* Updated Layout: Space Evenly */}
               <div className="flex flex-col md:flex-row items-start md:items-center py-8 px-4 md:px-12 gap-6 md:gap-8 relative z-10">
@@ -649,7 +614,7 @@ const ProjectDetail = ({
                <div>
                  <h1 className="font-display font-bold text-4xl md:text-6xl uppercase leading-[0.85] mb-4">{project.title}</h1>
                  <div className="font-mono text-xs text-radar flex items-center gap-2 mb-4">
-                   <Disc size={12} className="animate-spin" /> {ui.detail_render}
+                   <Disc size={12} className="animate-spin" /> {project.status}
                  </div>
                </div>
 
@@ -812,7 +777,7 @@ const FinalBlock = ({ ui }: { ui: typeof CONTENT.RU.UI }) => {
                <a href="mailto:vodichkacrew@gmail.com" className="font-mono text-lg md:text-2xl hover:text-radar transition-colors" data-interactive="true">
                  vodichkacrew@gmail.com
                </a>
-               <a href="https://t.me/Razmik_kocharyan" target="_blank" rel="noreferrer" className="font-mono text-lg md:text-2xl hover:text-radar transition-colors" data-interactive="true">
+               <a href="https://t.me/Razmik_kocharyan" className="font-mono text-lg md:text-2xl hover:text-radar transition-colors">
                  tg: @Razmik_kocharyan
                </a>
             </div>
@@ -845,7 +810,6 @@ const App = () => {
 
   return (
     <div className="bg-void min-h-screen text-white relative selection:bg-radar selection:text-black animate-in fade-in duration-1000">
-      <RadarCursor label={ui.cursor_target} />
       
       <NavBar lang={lang} setLang={setLang} ui={ui} />
 
