@@ -67,299 +67,77 @@ const NavBar = ({
   );
 };
 
-// 3. Mini Chart Component for Monitor
-const MiniChart = () => {
-  const [data, setData] = useState(Array(10).fill(0).map(() => Math.random() * 10));
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setData(prev => {
-        const next = [...prev.slice(1), Math.random() * 10];
-        return next;
-      });
-    }, 100);
-    return () => clearInterval(interval);
-  }, []);
-
-  const points = data.map((val, i) => `${i * 3},${10 - val}`).join(' ');
-
-  return (
-    <svg width="30" height="10" className="overflow-visible ml-2">
-      <polyline 
-        points={points} 
-        fill="none" 
-        stroke="currentColor" 
-        strokeWidth="1" 
-        className="text-radar opacity-80"
-      />
-    </svg>
-  );
-};
-
-// 3b. Water Monitor Component
-const WaterMonitor = ({ ui }: { ui: typeof CONTENT.RU.UI }) => {
-  const [metrics, setMetrics] = useState({
-    pressure: 1013.2,
-    flow: 12.4,
-    purity: 99.98,
-    temp: 14.2
+// 4. Hero Slideshow — surveillance-feed background cycling through project media
+const HeroSlideshow = ({ images }: { images: string[] }) => {
+  const [state, setState] = useState({
+    topUrl: images[0] || '',
+    bottomUrl: images.length > 1 ? images[1] : images[0] || '',
+    showTop: true,
   });
+  const indexRef = useRef(0);
 
   useEffect(() => {
+    if (images.length <= 1) return;
+
     const interval = setInterval(() => {
-      setMetrics(prev => ({
-        pressure: prev.pressure + (Math.random() - 0.5) * 1.5,
-        flow: Math.max(0, prev.flow + (Math.random() - 0.5) * 0.2),
-        purity: Math.min(100, Math.max(98, prev.purity + (Math.random() - 0.5) * 0.05)),
-        temp: prev.temp + (Math.random() - 0.5) * 0.1
-      }));
-    }, 150);
+      indexRef.current = (indexRef.current + 1) % images.length;
+      const nextUrl = images[indexRef.current];
+
+      setState(prev => {
+        if (prev.showTop) {
+          // top visible → load next into bottom, reveal bottom
+          return { ...prev, bottomUrl: nextUrl, showTop: false };
+        } else {
+          // bottom visible → load next into top, reveal top
+          return { ...prev, topUrl: nextUrl, showTop: true };
+        }
+      });
+    }, 2000);
+
     return () => clearInterval(interval);
-  }, []);
+  }, [images]);
+
+  if (!images.length) return null;
+
+  const isVideo = (url: string) => /\.mp4|\.webm|\.ogg/i.test(url);
+
+  const MediaLayer = ({ url, visible }: { url: string; visible: boolean }) => (
+    <div className={`absolute inset-0 transition-opacity duration-[1500ms] ease-in-out ${visible ? 'opacity-100' : 'opacity-0'}`}>
+      {isVideo(url) ? (
+        <video key={url} src={url} muted loop playsInline autoPlay className="w-full h-full object-cover grayscale brightness-75 scale-110" />
+      ) : (
+        <img key={url} src={url} alt="" className="w-full h-full object-cover grayscale brightness-75 scale-110" />
+      )}
+    </div>
+  );
 
   return (
-    <div className="flex flex-col items-end gap-2 font-mono text-[9px]">
-      <div className="grid grid-cols-2 gap-x-6 gap-y-2 text-right">
-        <div className="flex items-center justify-end gap-2">
-           <MiniChart />
-           <span className="text-radar">{ui.monitor_pressure}</span>
-           <span className="text-white w-12">{metrics.pressure.toFixed(1)}</span>
-        </div>
-        <div className="flex items-center justify-end gap-2">
-           <MiniChart />
-           <span className="text-radar">{ui.monitor_flow}</span>
-           <span className="text-white w-12">{metrics.flow.toFixed(2)}</span>
-        </div>
-        <div className="flex items-center justify-end gap-2">
-           <MiniChart />
-           <span className="text-radar">{ui.monitor_purity}</span>
-           <span className="text-white w-12">{metrics.purity.toFixed(2)}%</span>
-        </div>
-        <div className="flex items-center justify-end gap-2">
-           <MiniChart />
-           <span className="text-radar">{ui.monitor_temp}</span>
-           <span className="text-white w-12">{metrics.temp.toFixed(1)}°</span>
-        </div>
-      </div>
+    <div className="absolute inset-0 pointer-events-none overflow-hidden">
+      {/* Double-buffer layers for cross-fade */}
+      <MediaLayer url={state.bottomUrl} visible={!state.showTop} />
+      <MediaLayer url={state.topUrl} visible={state.showTop} />
+
+      {/* Layer 1: Solid color overlay */}
+      <div className="absolute inset-0 bg-zinc-950/50 mix-blend-multiply" />
+      {/* Layer 2: Top-to-bottom gradient (fade top edge) */}
+      <div className="absolute inset-0 bg-gradient-to-b from-void via-transparent to-transparent" />
+      {/* Layer 3: Bottom-to-top gradient (fade bottom edge) */}
+      <div className="absolute inset-0 bg-gradient-to-t from-void via-transparent to-transparent" />
+      {/* Layer 4: Radial vignette (darken corners) */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_30%,#050505_100%)]" />
     </div>
   );
 };
 
-// 4. Hero Background Generator (Abstract Aquarium)
-const HeroBackground = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+// 4b. Hero Section
+const Hero = ({ ui, projects }: { ui: typeof CONTENT.RU.UI; projects: Project[] }) => {
+  // Only use video URLs (no static images)
+  const heroImages = projects.map(p => p.previewVideoUrl).filter((url): url is string => !!url && /\.mp4|\.webm|\.ogg/i.test(url));
 
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    let width = canvas.width = canvas.parentElement?.offsetWidth || window.innerWidth;
-    let height = canvas.height = canvas.parentElement?.offsetHeight || window.innerHeight;
-
-    const resizeObserver = new ResizeObserver(() => {
-       if (canvas.parentElement) {
-         width = canvas.width = canvas.parentElement.offsetWidth;
-         height = canvas.height = canvas.parentElement.offsetHeight;
-       }
-    });
-    if (canvas.parentElement) resizeObserver.observe(canvas.parentElement);
-
-    // Abstract Fish / Entity Class
-    class AbstractFish {
-        x: number;
-        y: number;
-        vx: number;
-        vy: number;
-        angle: number;
-        type: number;
-        scale: number;
-        tick: number; // for animation oscillation
-        speed: number;
-
-        constructor(w: number, h: number, type: number) {
-            this.x = Math.random() * w;
-            this.y = Math.random() * h;
-            this.angle = Math.random() * Math.PI * 2;
-            this.vx = Math.cos(this.angle) * 0.5;
-            this.vy = Math.sin(this.angle) * 0.5;
-            this.type = type; // 0, 1, 2, 3
-            this.scale = 0.5 + Math.random() * 0.6; // Slightly more variance
-            this.tick = Math.random() * 100;
-            // Increased speed variance and base speed for "more often" feel
-            this.speed = 0.5 + Math.random() * 1.0; 
-        }
-
-        update(w: number, h: number) {
-            this.tick += 0.05;
-            
-            // Smooth wandering behavior
-            if (Math.random() < 0.02) {
-            this.angle += (Math.random() - 0.5) * 1.5; // Sharper turns possible
-            }
-            
-            this.vx += Math.cos(this.angle) * 0.02;
-            this.vy += Math.sin(this.angle) * 0.02;
-            
-            // Limit speed and update angle based on velocity
-            const mag = Math.sqrt(this.vx*this.vx + this.vy*this.vy);
-            if (mag > 0.01) { // Avoid divide by zero
-                this.angle = Math.atan2(this.vy, this.vx);
-                if (mag > this.speed) {
-                    this.vx = (this.vx / mag) * this.speed;
-                    this.vy = (this.vy / mag) * this.speed;
-                }
-            }
-
-            this.x += this.vx;
-            this.y += this.vy;
-
-            // Wrap around screen
-            if (this.x < -150) this.x = w + 150;
-            if (this.x > w + 150) this.x = -150;
-            if (this.y < -150) this.y = h + 150;
-            if (this.y > h + 150) this.y = -150;
-        }
-
-        draw(ctx: CanvasRenderingContext2D) {
-            ctx.save();
-            ctx.translate(this.x, this.y);
-            ctx.rotate(this.angle);
-            ctx.scale(this.scale, this.scale);
-            
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.7)';
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
-            ctx.lineWidth = 1.2;
-            
-            // Anti-design Geometry Types
-            if (this.type === 0) {
-                // TYPE 1: The Poly-Shard (Angular, sharp)
-                ctx.beginPath();
-                ctx.moveTo(20, 0); // Head
-                ctx.lineTo(-5, 8);
-                ctx.lineTo(0, 0);
-                ctx.lineTo(-5, -8);
-                ctx.closePath();
-                ctx.stroke();
-                ctx.fill();
-                
-                // Disconnected tail piece
-                ctx.beginPath();
-                const tailY = Math.sin(this.tick * 4) * 4;
-                ctx.moveTo(-10, 0);
-                ctx.lineTo(-25, tailY);
-                ctx.stroke();
-
-            } else if (this.type === 1) {
-                // TYPE 2: The Bubble Chain (Skeleton-like circles)
-                ctx.beginPath();
-                ctx.arc(15, 0, 5, 0, Math.PI * 2); // Head
-                ctx.stroke();
-                
-                for(let i=1; i<=3; i++) {
-                    const offset = Math.sin(this.tick * 3 - i) * (i * 2);
-                    ctx.beginPath();
-                    // Decreasing circles
-                    ctx.arc(15 - (i*14), offset, 4 - i * 0.5, 0, Math.PI*2);
-                    ctx.stroke();
-                }
-
-            } else if (this.type === 2) {
-                // TYPE 3: The Glitch Box (Rectangular, robotic)
-                const twitch = Math.random() > 0.95 ? 2 : 0; // Occasional size glitch
-                ctx.strokeRect(0, -6 - twitch, 20, 12 + twitch*2); // Body
-                
-                // Tail is a smaller rect
-                const tailY = Math.sin(this.tick * 6) * 3;
-                ctx.strokeRect(-18, -3 + tailY, 12, 6);
-                
-                // "Eye"
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-                ctx.fillRect(14, -2, 2, 4);
-
-            } else if (this.type === 3) {
-                // TYPE 4: The Sine Wire (Minimalist wave)
-                ctx.beginPath();
-                ctx.moveTo(25, 0);
-                for(let i=0; i<50; i+=5) {
-                    const y = Math.sin(this.tick * 5 + i * 0.2) * (i * 0.25);
-                    ctx.lineTo(25 - i, y);
-                }
-                ctx.stroke();
-                
-                // Simple head dot
-                ctx.fillStyle = 'white';
-                ctx.beginPath();
-                ctx.arc(25, 0, 2, 0, Math.PI*2);
-                ctx.fill();
-            }
-
-            ctx.restore();
-        }
-    }
-
-    // Initialize more fish (18) with random types and positions
-    const fish = Array.from({ length: 18 }, () => 
-        new AbstractFish(width, height, Math.floor(Math.random() * 4))
-    );
-
-    // Minimal floating particles (dust)
-    const dust = Array.from({ length: 20 }, () => ({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        size: Math.random() * 1.5,
-        speed: 0.1 + Math.random() * 0.2
-    }));
-
-    let animationFrameId: number;
-
-    const render = () => {
-        // Clear canvas
-        ctx.clearRect(0, 0, width, height);
-        
-        // Draw Dust
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
-        dust.forEach(p => {
-            p.y -= p.speed; // float up slowly
-            if (p.y < 0) p.y = height;
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.size, 0, Math.PI*2);
-            ctx.fill();
-        });
-
-        // Update and Draw Fish
-        fish.forEach(f => {
-            f.update(width, height);
-            f.draw(ctx);
-        });
-
-        animationFrameId = requestAnimationFrame(render);
-    };
-    render();
-
-    return () => {
-        cancelAnimationFrame(animationFrameId);
-        resizeObserver.disconnect();
-    };
-  }, []);
-
-  return (
-    <>
-      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" />
-      {/* Heavy Vignette for deep water feel */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#050505_100%)] pointer-events-none opacity-90" />
-      <div className="absolute inset-0 bg-gradient-to-t from-void via-transparent to-void pointer-events-none" />
-    </>
-  );
-};
-
-// 4. Hero Section
-const Hero = ({ ui }: { ui: typeof CONTENT.RU.UI }) => {
   return (
     <header className="relative min-h-[50vh] md:min-h-[70vh] flex flex-col justify-start pt-24 md:pt-32 p-4 md:p-12 border-b border-concrete overflow-hidden">
-      {/* Background Layer */}
-      <HeroBackground />
+      {/* Background Slideshow */}
+      <HeroSlideshow images={heroImages} />
 
       {/* Main Flex Container for Title and Monitor Alignment */}
       <div className="relative z-20 flex flex-col md:flex-row justify-between items-start w-full mb-8">
@@ -369,10 +147,6 @@ const Hero = ({ ui }: { ui: typeof CONTENT.RU.UI }) => {
           VODICHKA<br/>CREW
         </h1>
 
-        {/* Monitor: Hidden on mobile, visible on desktop */}
-        <div className="hidden md:block md:pt-4">
-          <WaterMonitor ui={ui} />
-        </div>
       </div>
 
       <div className="max-w-xl relative z-10">
@@ -506,11 +280,11 @@ const ProjectList = ({
                             className="w-full h-full object-cover opacity-80 md:opacity-50 group-hover:opacity-100 transition-all duration-500"
                           />
                         ) : (
-                          <img 
-                            src={project.imageUrl} 
-                            alt="thumb" 
+                        <img 
+                        src={project.imageUrl} 
+                        alt="thumb" 
                             className="w-full h-full object-cover opacity-80 md:opacity-50 group-hover:opacity-100 transition-all duration-500" 
-                          />
+                        />
                         )}
                     </div>
                 </div>
@@ -759,8 +533,6 @@ const ProjectDetail = ({
 const FinalBlock = ({ ui }: { ui: typeof CONTENT.RU.UI }) => {
   return (
     <footer className="relative bg-black text-white z-10 min-h-[50vh] flex flex-col justify-center py-16 border-t border-zinc-900 overflow-hidden">
-       {/* Fish Background Layer for Footer */}
-       <HeroBackground />
        
        <div className="container mx-auto px-4 md:px-12 relative z-10 h-full flex flex-col justify-between flex-1">
          
@@ -814,7 +586,7 @@ const App = () => {
       <NavBar lang={lang} setLang={setLang} ui={ui} />
 
       <main className="pt-16">
-        <Hero ui={ui} />
+        <Hero ui={ui} projects={content.PROJECTS} />
         <ProjectList onSelect={handleProjectSelect} projects={content.PROJECTS} ui={ui} />
         <AboutSection ui={ui} />
       </main>
