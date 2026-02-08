@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ArrowUpRight, Grid, Disc, Activity, ArrowLeft, ArrowRight, Mail, Send } from 'lucide-react';
+import { ArrowUpRight, Grid, Disc, Activity, ArrowLeft, ArrowRight, Mail } from 'lucide-react';
 import { CONTENT } from './constants';
 import { Project, ViewState } from './types';
 
@@ -29,8 +29,30 @@ const NavBar = ({
            <div className="w-1.5 h-1.5 bg-radar rounded-full ml-2 animate-pulse" />
         </div>
 
-        <div className="hidden md:flex flex-1 justify-end items-center px-8 gap-8">
-           {/* Language Switcher updated */}
+        <div className="hidden md:flex flex-1 justify-end items-center px-8 gap-6">
+           {/* Email Button */}
+           <a 
+             href="mailto:vodichkacrew@gmail.com"
+             className="font-mono text-xs border border-concrete px-4 py-2 hover:bg-white hover:text-black transition-colors flex items-center gap-2"
+           >
+             <Mail size={14} />
+             <span>Написать нам</span>
+           </a>
+
+           {/* Telegram Link */}
+           <a 
+             href="https://tlgg.ru/@Razmik_kocharyan"
+             target="_blank"
+             rel="noreferrer"
+             className="text-white hover:text-radar transition-colors"
+             title="Telegram"
+           >
+             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+               <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.193l-1.87 8.81c-.138.625-.537.778-.978.485l-2.694-1.984-1.297 1.248c-.15.15-.277.277-.568.277l.193-2.72 4.98-4.5c.217-.193-.047-.3-.336-.107l-6.15 3.875-2.65-.83c-.577-.18-.592-.577.12-.87l10.35-3.99c.48-.165.9.112.74.85z"/>
+             </svg>
+           </a>
+
+           {/* Language Switcher */}
            <div className="font-mono text-xs flex gap-2">
              <button 
                onClick={() => setLang('RU')}
@@ -365,9 +387,18 @@ const ProjectDetail = ({
   return (
     <div className="fixed inset-0 z-[200] bg-void text-white overflow-y-auto animate-in fade-in duration-300">
       <div className="min-h-screen flex flex-col relative pb-20"> {/* Add padding bottom for nav bar */}
+        {/* Back Button - Left Corner */}
+        <button
+          onClick={onClose}
+          className="fixed top-4 left-4 z-30 flex items-center gap-2 font-mono text-xs text-zinc-400 hover:text-white transition-colors bg-void/80 backdrop-blur-sm border border-concrete px-4 py-2"
+        >
+          <ArrowLeft size={16} />
+          <span>Назад</span>
+        </button>
+
         {/* Header */}
         <div className="fixed top-0 left-0 w-full p-4 flex justify-between items-center bg-void/90 backdrop-blur border-b border-concrete z-10">
-           <div className="font-mono text-xs text-zinc-500 flex items-center gap-4">
+           <div className="font-mono text-xs text-zinc-500 flex items-center gap-4 ml-20">
              <span>{project.code}</span>
              <span className="text-zinc-700">//</span>
              <span>{ui.detail_review}</span>
