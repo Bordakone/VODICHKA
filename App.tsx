@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ArrowUpRight, Grid, Disc, Activity, ArrowLeft, ArrowRight } from 'lucide-react';
+import { ArrowUpRight, Grid, Disc, Activity, ArrowLeft, ArrowRight, Mail, Send } from 'lucide-react';
 import { CONTENT } from './constants';
 import { Project, ViewState } from './types';
 
