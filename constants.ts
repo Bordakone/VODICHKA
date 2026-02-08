@@ -68,7 +68,7 @@ const PROJECTS_RU: Project[] = [
     specs: ['VFX', 'MOTION CONTROL', 'FUTURE_TECH'],
     imageUrl: 'https://picsum.photos/1920/1080?random=4',
     previewVideoUrl: 'https://storage.yandexcloud.net/vodichkacrew/%D0%9E%D0%BD%D0%BE%20%D1%82%D0%BE%D0%B3%D0%BE%20%D1%81%D1%82%D0%BE%D0%B8%D1%82%20%D0%BC%D0%B0%D0%BB%D0%B5%D0%BD%D1%8C%D0%BA%D0%B0%D1%8F.mp4',
-    fullVideoUrl: 'https://storage.yandexcloud.net/vodichkacrew/250417_WB_20s_v03%20(1).mp4'
+    fullVideoUrl: 'https://storage.yandexcloud.net/vodichkacrew/WB_35s_no_legal.mp4'
   },
   {
     id: '5',
@@ -239,7 +239,7 @@ const PROJECTS_EN: Project[] = [
     specs: ['VFX', 'MOTION CONTROL', 'FUTURE_TECH'],
     imageUrl: 'https://picsum.photos/1920/1080?random=4',
     previewVideoUrl: 'https://storage.yandexcloud.net/vodichkacrew/%D0%9E%D0%BD%D0%BE%20%D1%82%D0%BE%D0%B3%D0%BE%20%D1%81%D1%82%D0%BE%D0%B8%D1%82%20%D0%BC%D0%B0%D0%BB%D0%B5%D0%BD%D1%8C%D0%BA%D0%B0%D1%8F.mp4',
-    fullVideoUrl: 'https://storage.yandexcloud.net/vodichkacrew/250417_WB_20s_v03%20(1).mp4'
+    fullVideoUrl: 'https://storage.yandexcloud.net/vodichkacrew/WB_35s_no_legal.mp4'
   },
   {
     id: '5',
