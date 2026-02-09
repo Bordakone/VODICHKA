@@ -501,12 +501,12 @@ const ProjectDetail = ({
                       <div className="h-[1px] bg-zinc-800 flex-grow"></div>
                    </div>
                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-                     <div className="lg:col-span-7 w-full aspect-video bg-zinc-900 border border-concrete overflow-hidden">
+                     <div className={`lg:col-span-7 w-full ${project.id === '8' ? 'aspect-[9/16]' : 'aspect-video'} bg-zinc-900 border border-concrete overflow-hidden`}>
                        <video
                          src={project.extraVideoUrl}
                          controls
                          playsInline
-                         className="w-full h-full object-cover"
+                         className="w-full h-full object-contain"
                        />
                      </div>
                      {project.extraVideoText && (
