@@ -170,6 +170,22 @@ const PROJECTS_RU: Project[] = [
     specs: ['PRINT', '3D RENDER', 'OUTDOOR'],
     imageUrl: 'https://storage.yandexcloud.net/vodichkacrew/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202026-02-06%20%D0%B2%2000.03.53.png'
   },
+  {
+    id: '11',
+    code: 'V_090',
+    client: 'B52',
+    title: 'НЕЙРОВИДЕО',
+    category: 'AI VIDEO',
+    year: '2025–2026',
+    status: 'AI VIDEO',
+    target: 'B52',
+    description: 'Серия AI-видео проекта B52.',
+    task: '',
+    idea: '',
+    specs: ['AI', 'SUNO', 'MIDJOURNEY', 'KLING', 'RUNWAY'],
+    imageUrl: 'https://picsum.photos/1920/1080?random=11',
+    previewVideoUrl: 'https://storage.yandexcloud.net/vodichkacrew/%D0%B8%D0%B8%20%D0%B2%D0%B8%D0%B4%D0%BE%D1%81%D1%8B/neuralpreview.mp4',
+  },
 ];
 
 const PROJECTS_EN: Project[] = [
@@ -340,6 +356,22 @@ const PROJECTS_EN: Project[] = [
     idea: 'The brand\'s local roots opened the door to unite people around Nizhny Novgorod.\n\nA fresh reason for all friends in Nizhny to get together. A campaign in a friendly tone, to fill the lines with warmth and the glasses with Okskoye.',
     specs: ['PRINT', '3D RENDER', 'OUTDOOR'],
     imageUrl: 'https://storage.yandexcloud.net/vodichkacrew/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202026-02-06%20%D0%B2%2000.03.53.png'
+  },
+  {
+    id: '11',
+    code: 'V_090',
+    client: 'B52',
+    title: 'NEURAL VIDEO',
+    category: 'AI VIDEO',
+    year: '2025–2026',
+    status: 'AI VIDEO',
+    target: 'B52',
+    description: 'AI video series by project B52.',
+    task: '',
+    idea: '',
+    specs: ['AI', 'SUNO', 'MIDJOURNEY', 'KLING', 'RUNWAY'],
+    imageUrl: 'https://picsum.photos/1920/1080?random=11',
+    previewVideoUrl: 'https://storage.yandexcloud.net/vodichkacrew/%D0%B8%D0%B8%20%D0%B2%D0%B8%D0%B4%D0%BE%D1%81%D1%8B/neuralpreview.mp4',
   },
 ];
 
