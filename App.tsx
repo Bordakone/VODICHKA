@@ -355,6 +355,178 @@ const AboutSection = ({ ui }: { ui: typeof CONTENT.RU.UI }) => {
   );
 };
 
+// 8a. Neural Video Detail — custom layout for AI video project
+const NeuralVideoDetail = ({ onClose, projects, onSelect }: { onClose: () => void; projects: Project[]; onSelect: (p: Project) => void }) => {
+  const V = 'https://storage.yandexcloud.net/vodichkacrew/%D0%B8%D0%B8%20%D0%B2%D0%B8%D0%B4%D0%BE%D1%81%D1%8B';
+
+  const VideoBlock = ({ src, aspect = 'video', className = '' }: { src: string; aspect?: string; className?: string }) => (
+    <div className={`bg-zinc-900 border border-concrete overflow-hidden ${aspect === '9/16' ? 'aspect-[9/16]' : 'aspect-video'} ${className}`}>
+      <video src={src} controls playsInline className="w-full h-full object-contain" />
+    </div>
+  );
+
+  const SectionTitle = ({ children }: { children: React.ReactNode }) => (
+    <div className="flex items-center gap-4 my-12">
+      <div className="h-[1px] bg-zinc-800 flex-grow" />
+      <span className="font-mono text-xs text-zinc-500 uppercase tracking-[0.2em]">{children}</span>
+      <div className="h-[1px] bg-zinc-800 flex-grow" />
+    </div>
+  );
+
+  return (
+    <div className="fixed inset-0 z-[200] bg-void text-white overflow-y-auto animate-in fade-in duration-300">
+      {/* Back Button */}
+      <button
+        onClick={onClose}
+        className="fixed top-4 left-4 z-30 flex items-center gap-2 font-mono text-xs text-zinc-400 hover:text-white transition-colors bg-void/80 backdrop-blur-sm border border-concrete px-4 py-2"
+      >
+        <ArrowLeft size={16} />
+        <span>Назад</span>
+      </button>
+
+      <div className="max-w-6xl mx-auto px-4 md:px-12 pt-24 pb-28">
+
+        {/* Header */}
+        <h1 className="font-display font-bold text-5xl md:text-8xl uppercase leading-[0.85] mb-4">НЕЙРОВИДЕО</h1>
+        <div className="font-mono text-xs text-radar mb-2">B52 // 2025–2026 // AI VIDEO</div>
+
+        {/* Manifesto */}
+        <div className="max-w-3xl mt-12 mb-16">
+          <p className="font-mono text-base md:text-lg text-zinc-300 leading-loose border-l-2 border-radar pl-6">
+            B52 — это ирония над студией A24. Это и коктейль, который всех бесит, как и поток одинаковых нейророликов.
+          </p>
+        </div>
+
+        {/* 1. SILVER BOR — left aligned */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-16">
+          <div className="lg:col-span-7">
+            <VideoBlock src={`${V}/silver-bor.mp4`} />
+          </div>
+          <div className="lg:col-span-5 flex flex-col justify-center">
+            <h3 className="font-display font-bold text-2xl md:text-3xl uppercase mb-4">SILVER BOR</h3>
+            <p className="font-mono text-sm text-zinc-400 leading-relaxed">
+              Видео посвящено Серебряному Бору и всем, кто прожил лето не так, как хотелось бы. 
+              Музыка создана в Suno, а видео собрано из оживлённых картинок Midjourney.
+            </p>
+          </div>
+        </div>
+
+        {/* 2. ФИТНЕС 666 — right aligned (mirrored) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-16">
+          <div className="lg:col-span-5 flex flex-col justify-center order-2 lg:order-1">
+            <h3 className="font-display font-bold text-2xl md:text-3xl uppercase mb-4">ФИТНЕС 666</h3>
+            <p className="font-mono text-sm text-zinc-400 leading-relaxed">
+              Нас постоянно убеждают заниматься спортом. А что, если фитнес-залы — не совсем то, что нам продают?
+            </p>
+          </div>
+          <div className="lg:col-span-7 order-1 lg:order-2">
+            <VideoBlock src={`${V}/FITNESS666.mp4`} />
+          </div>
+        </div>
+
+        {/* 3. WASTE + GROW — series of two */}
+        <SectionTitle>Серия</SectionTitle>
+        <div className="mb-6">
+          <p className="font-mono text-sm text-zinc-400 leading-relaxed text-center max-w-xl mx-auto">
+            Что если мусор или растения дадут людям отпор?
+          </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+          <div>
+            <VideoBlock src={`${V}/WASTE.mp4`} />
+            <h3 className="font-display font-bold text-xl uppercase mt-3">WASTE!</h3>
+          </div>
+          <div>
+            <VideoBlock src={`${V}/GROW.mp4`} />
+            <h3 className="font-display font-bold text-xl uppercase mt-3">GROW!</h3>
+          </div>
+        </div>
+
+        {/* 4. BRAINMORPH — full width */}
+        <div className="mb-16">
+          <VideoBlock src={`${V}/brainmorph.mp4`} />
+          <div className="max-w-3xl mt-6">
+            <p className="font-mono text-sm text-zinc-400 leading-relaxed">
+              У вас когда-нибудь возникало ощущение, что драм-н-бейс — это музыка про киборга, который несётся по воде, 
+              меняет форму на лету, его подрывают, но внутри обнаруживается инопланетный мозг, способный сливаться 
+              с окружением и тут же прокачивать его технологиями?
+            </p>
+          </div>
+        </div>
+
+        {/* 5. Нейростендап */}
+        <SectionTitle>Нейростендап</SectionTitle>
+        <div className="grid grid-cols-3 gap-2 sm:gap-6 mb-16">
+          <div>
+            <VideoBlock src={`${V}/%D0%9C%D0%B5%D1%82%D1%80%D0%BE.mp4`} aspect="9/16" />
+            <h3 className="font-display font-bold text-sm md:text-lg uppercase mt-3">Андрей Блестящий</h3>
+          </div>
+          <div>
+            <VideoBlock src={`${V}/%D0%BA%D1%80%D0%B5%D0%B2%D0%B5%D1%82%D0%BA%D0%B8.mp4`} aspect="9/16" />
+            <h3 className="font-display font-bold text-sm md:text-lg uppercase mt-3">Тёма Бобслей</h3>
+          </div>
+          <div>
+            <VideoBlock src={`${V}/%D0%9B%D0%B5%D1%80%D0%B0%20%D0%A5%D0%BE%D0%BD2000.mp4`} aspect="9/16" />
+            <h3 className="font-display font-bold text-sm md:text-lg uppercase mt-3">Лера Хон</h3>
+          </div>
+        </div>
+
+        {/* 6. SLOPS */}
+        <SectionTitle>SLOPS</SectionTitle>
+        <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-16 max-w-4xl mx-auto">
+          <div>
+            <VideoBlock src={`${V}/escalator.mp4`} aspect="9/16" />
+            <h3 className="font-display font-bold text-sm md:text-lg uppercase mt-3">THE ESCALATOR</h3>
+          </div>
+          <div>
+            <VideoBlock src={`${V}/cs.mp4`} aspect="9/16" />
+            <h3 className="font-display font-bold text-sm md:text-lg uppercase mt-3">CHACKRA–SKIN–CS2–GG.COM</h3>
+          </div>
+          <div>
+            <VideoBlock src={`${V}/AQUAPARK.mp4`} aspect="9/16" />
+            <h3 className="font-display font-bold text-sm md:text-lg uppercase mt-3">Аквапарк</h3>
+          </div>
+        </div>
+
+      </div>
+
+      {/* Bottom Navigation */}
+      {(() => {
+        const currentIndex = projects.findIndex(p => p.id === '11');
+        const prevProject = currentIndex > 0 ? projects[currentIndex - 1] : null;
+        const nextProject = currentIndex < projects.length - 1 ? projects[currentIndex + 1] : null;
+        return (
+          <div className="fixed bottom-0 left-0 w-full bg-void border-t border-concrete p-4 flex justify-between items-center z-20">
+            <button
+              onClick={() => prevProject && onSelect(prevProject)}
+              className={`flex items-center gap-4 group transition-colors ${!prevProject ? 'opacity-0 pointer-events-none' : 'text-zinc-500 hover:text-white'}`}
+            >
+              <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
+              <div className="hidden md:block text-left">
+                <div className="font-mono text-[10px] uppercase">Previous</div>
+                <div className="font-display text-sm truncate max-w-[150px]">{prevProject?.title}</div>
+              </div>
+            </button>
+            <div className="font-mono text-xs text-zinc-600">
+              {String(currentIndex + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}
+            </div>
+            <button
+              onClick={() => nextProject && onSelect(nextProject)}
+              className={`flex items-center gap-4 group transition-colors text-right ${!nextProject ? 'opacity-0 pointer-events-none' : 'text-zinc-500 hover:text-white'}`}
+            >
+              <div className="hidden md:block">
+                <div className="font-mono text-[10px] uppercase">Next</div>
+                <div className="font-display text-sm truncate max-w-[150px]">{nextProject?.title}</div>
+              </div>
+              <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+            </button>
+          </div>
+        );
+      })()}
+    </div>
+  );
+};
+
 // 8. Project Detail Overlay
 const ProjectDetail = ({ 
   project,
@@ -370,6 +542,11 @@ const ProjectDetail = ({
   ui: typeof CONTENT.RU.UI 
 }) => {
   if (!project) return null;
+
+  // Custom layout for Neural Video project
+  if (project.id === '11') {
+    return <NeuralVideoDetail onClose={onClose} projects={projects} onSelect={onSelect} />;
+  }
 
   // Navigation Logic
   const currentIndex = projects.findIndex(p => p.id === project.id);
@@ -594,6 +771,30 @@ const FinalBlock = ({ ui }: { ui: typeof CONTENT.RU.UI }) => {
   );
 };
 
+// --- Slug helpers ---
+const SLUG_MAP: Record<string, string> = {
+  '1': 'gonka-za-skidkami',
+  '2': 'posylka',
+  '3': 'rasprozhara',
+  '4': 'ono-togo-stoit',
+  '5': '30-let-vmeste',
+  '6': 'babulya-gik',
+  '7': 'pushi-s-zabotoy',
+  '8': 'lyudi-vybirayut-vebeshechku',
+  '9': 'zachetnaya-rasprodazha',
+  '10': 'svezhiy-povod',
+  '11': 'neyrovideo',
+};
+const ID_BY_SLUG = Object.fromEntries(Object.entries(SLUG_MAP).map(([id, slug]) => [slug, id]));
+
+const projectToPath = (project: Project) => `/project/${SLUG_MAP[project.id] || project.id}`;
+const pathToProjectId = (path: string): string | null => {
+  const match = path.match(/^\/project\/(.+)$/);
+  if (!match) return null;
+  const slugOrId = match[1];
+  return ID_BY_SLUG[slugOrId] || slugOrId;
+};
+
 // --- MAIN APP ---
 
 const App = () => {
@@ -603,12 +804,44 @@ const App = () => {
   const content = CONTENT[lang];
   const ui = content.UI;
 
+  // On mount: read URL and open project if path matches
+  useEffect(() => {
+    const id = pathToProjectId(window.location.pathname);
+    if (id) {
+      const allProjects = [...CONTENT.RU.PROJECTS, ...CONTENT.EN.PROJECTS];
+      const found = CONTENT[lang].PROJECTS.find(p => p.id === id) || allProjects.find(p => p.id === id);
+      if (found) setSelectedProject(found);
+    }
+  }, []);
+
+  // Listen for browser back/forward
+  useEffect(() => {
+    const onPop = () => {
+      const id = pathToProjectId(window.location.pathname);
+      if (id) {
+        const found = content.PROJECTS.find(p => p.id === id);
+        setSelectedProject(found || null);
+      } else {
+        setSelectedProject(null);
+      }
+    };
+    window.addEventListener('popstate', onPop);
+    return () => window.removeEventListener('popstate', onPop);
+  }, [content.PROJECTS]);
+
   const handleProjectSelect = (project: Project) => {
     setSelectedProject(project);
+    const path = projectToPath(project);
+    if (window.location.pathname !== path) {
+      window.history.pushState({ projectId: project.id }, '', path);
+    }
   };
 
   const handleCloseProject = () => {
     setSelectedProject(null);
+    if (window.location.pathname !== '/') {
+      window.history.pushState(null, '', '/');
+    }
   };
 
   return (
