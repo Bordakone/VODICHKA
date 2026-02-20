@@ -527,25 +527,291 @@ const NeuralVideoDetail = ({ onClose, projects, onSelect }: { onClose: () => voi
   );
 };
 
+// 8b. Events Detail — custom layout for events project
+const EventsDetail = ({ onClose, projects, onSelect, lang }: { onClose: () => void; projects: Project[]; onSelect: (p: Project) => void; lang: string }) => {
+  const E = 'https://storage.yandexcloud.net/vodichkacrew/%D0%B8%D0%B2%D0%B5%D0%BD%D1%82%D1%8B';
+
+  const SectionDivider = ({ children }: { children: React.ReactNode }) => (
+    <div className="flex items-center gap-4 my-16 md:my-24">
+      <div className="h-[1px] bg-zinc-800 flex-grow" />
+      <span className="font-mono text-xs text-radar uppercase tracking-[0.3em]">{children}</span>
+      <div className="h-[1px] bg-zinc-800 flex-grow" />
+    </div>
+  );
+
+  return (
+    <div className="fixed inset-0 z-[200] bg-void text-white overflow-y-auto animate-in fade-in duration-300">
+      <button
+        onClick={onClose}
+        className="fixed top-4 left-4 z-30 flex items-center gap-2 font-mono text-xs text-zinc-400 hover:text-white transition-colors bg-void/80 backdrop-blur-sm border border-concrete px-4 py-2"
+      >
+        <ArrowLeft size={16} />
+        <span>{lang === 'RU' ? 'Назад' : 'Back'}</span>
+      </button>
+
+      <div className="max-w-6xl mx-auto px-4 md:px-12 pt-24 pb-28">
+
+        {/* Page Header */}
+        <h1 className="font-display font-bold text-5xl md:text-8xl uppercase leading-[0.85] mb-4">
+          {lang === 'RU' ? 'ИВЕНТЫ' : 'EVENTS'}
+        </h1>
+        <div className="font-mono text-xs text-radar mb-16">EVENT PRODUCTION // 2024–2025</div>
+
+        {/* ===== PROJECT 1: KARL LAGERFELD × L'ORÉAL ===== */}
+        <SectionDivider>01</SectionDivider>
+
+        {/* Category + Title */}
+        <div className="text-center mb-16">
+          <div className="font-mono text-xs text-zinc-500 tracking-[0.4em] uppercase mb-6">
+            EVENT / BEAUTY
+          </div>
+          <h2 className="font-display font-bold text-3xl md:text-6xl lg:text-7xl uppercase leading-[0.9] tracking-tight">
+            KARL LAGERFELD
+            <span className="text-zinc-500 mx-2 md:mx-4">×</span>
+            L'ORÉAL
+          </h2>
+          <div className="font-display text-xl md:text-3xl text-zinc-500 mt-2 tracking-widest">PARIS</div>
+        </div>
+
+        {/* Task block + GIF 1 */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-16">
+          <div className="lg:col-span-5 flex flex-col justify-center">
+            <div className="bg-zinc-900/50 border border-radar/30 p-6 md:p-8">
+              <label className="block font-mono text-[10px] text-radar mb-4 uppercase tracking-widest">
+                {lang === 'RU' ? 'ЗАДАЧА' : 'TASK'}
+              </label>
+              <div className="font-display text-xl md:text-2xl leading-tight text-white">
+                {lang === 'RU'
+                  ? 'Разработать концепцию мероприятия по запуску новой линейки продуктов L\'Oréal x Karl Lagerfeld'
+                  : 'Develop an event concept for the launch of a new L\'Oréal x Karl Lagerfeld product line'}
+              </div>
+            </div>
+          </div>
+          <div className="lg:col-span-7">
+            <div className="border border-concrete overflow-hidden">
+              <img
+                src={`${E}/upload-30029aaf-d46c-4970-9435-eff16c647480.gif`}
+                alt="Karl Lagerfeld x L'Oréal"
+                className="w-full h-auto"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* GIF 2 + Idea block */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-16">
+          <div className="lg:col-span-7">
+            <div className="border border-concrete overflow-hidden">
+              <img
+                src={`${E}/upload-70c158bf-f995-44bf-b354-c0eb9ebac5be.gif`}
+                alt="Karl Lagerfeld x L'Oréal event"
+                className="w-full h-auto"
+              />
+            </div>
+          </div>
+          <div className="lg:col-span-5 flex flex-col justify-center">
+            <div className="bg-zinc-900/20 p-6 md:p-8 border-l border-zinc-800">
+              <label className="block font-mono text-[10px] text-zinc-500 mb-4 uppercase tracking-widest">
+                {lang === 'RU' ? 'ИДЕЯ' : 'IDEA'}
+              </label>
+              <p className="font-mono text-sm md:text-base leading-loose text-zinc-300">
+                {lang === 'RU'
+                  ? 'Карл Лагерфельд — супер-звезда в мире моды. Он был перфекционистом, окружал себя только лучшими вещами и не стыдился своей славы. Мы создали роскошную атмосферу, где каждый гость сможет поддаться здоровому тщеславию и почувствовать себя звездой.'
+                  : 'Karl Lagerfeld was a superstar of fashion. A perfectionist who surrounded himself only with the finest things and never shied from his fame. We created a luxurious atmosphere where every guest could indulge in healthy vanity and feel like a star.'}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* ===== PROJECT 2: WB × КРОШЕВО ===== */}
+        <SectionDivider>02</SectionDivider>
+
+        {/* Title + Hero Photo */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-16">
+          <div className="lg:col-span-6">
+            <div className="border border-concrete overflow-hidden">
+              <img
+                src={`${E}/%D0%BE%D0%B1%D1%89%D0%B5%D0%B5%20%D1%84%D0%BE%D1%82%D0%BE.jpg`}
+                alt="WB x Крошево"
+                className="w-full h-auto"
+              />
+            </div>
+          </div>
+          <div className="lg:col-span-6 flex flex-col justify-center">
+            <div className="font-mono text-xs text-zinc-500 tracking-[0.4em] uppercase mb-4">
+              EVENT / GASTRO
+            </div>
+            <h2 className="font-display font-bold text-3xl md:text-5xl uppercase leading-[0.9] mb-6">
+              {lang === 'RU' ? 'РУБИМ КАПУСТУ ВМЕСТЕ С WB' : 'CHOPPING CABBAGE WITH WB'}
+            </h2>
+            <div className="inline-flex items-center gap-2 font-mono text-xs text-radar border border-radar/30 px-3 py-1.5 mb-6 self-start">
+              <span>WILDBERRIES × КРОШЕВО</span>
+            </div>
+            <div className="bg-zinc-900/50 border border-radar/30 p-6">
+              <label className="block font-mono text-[10px] text-radar mb-3 uppercase tracking-widest">
+                {lang === 'RU' ? 'ЗАДАЧА' : 'TASK'}
+              </label>
+              <div className="font-display text-lg md:text-xl leading-tight text-white">
+                {lang === 'RU'
+                  ? 'Органично интегрировать WB в народный гастрофестиваль «Крошево» — 15 000 гостей, город Боровичи, капуста как главный герой'
+                  : 'Seamlessly integrate WB into the folk gastro-festival "Kroshevo" — 15,000 guests, Borovichi, cabbage as the main character'}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Idea / Concept Block */}
+        <div className="max-w-4xl mx-auto mb-16">
+          <div className="bg-zinc-900/20 p-8 md:p-12 border-l-2 border-radar">
+            <label className="block font-mono text-[10px] text-zinc-500 mb-6 uppercase tracking-widest">
+              {lang === 'RU' ? 'ИДЕЯ' : 'IDEA'}
+            </label>
+            <p className="font-mono text-base md:text-lg leading-loose text-zinc-300 mb-6">
+              {lang === 'RU'
+                ? '«Рубим капусту вместе с WB» — лайн, в котором сошлось всё.'
+                : '"Chopping cabbage with WB" — a line where everything came together.'}
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+              <div className="border border-zinc-800 p-4">
+                <div className="font-mono text-[10px] text-radar mb-2 uppercase">КРОШЕВО</div>
+                <p className="font-mono text-sm text-zinc-400">
+                  {lang === 'RU'
+                    ? 'На фестивале капусту рубят буквально — гастрофестиваль посвящён главному продукту русской кухни'
+                    : 'At the festival, cabbage is chopped literally — the gastro-fest celebrates the staple of Russian cuisine'}
+                </p>
+              </div>
+              <div className="border border-zinc-800 p-4">
+                <div className="font-mono text-[10px] text-radar mb-2 uppercase">WILDBERRIES</div>
+                <p className="font-mono text-sm text-zinc-400">
+                  {lang === 'RU'
+                    ? 'На WB «рубят капусту» в переносном смысле — продают товары и зарабатывают'
+                    : 'On WB, "chopping cabbage" means earning money — selling products and growing business'}
+                </p>
+              </div>
+              <div className="border border-zinc-800 p-4">
+                <div className="font-mono text-[10px] text-radar mb-2 uppercase">WIBES</div>
+                <p className="font-mono text-sm text-zinc-400">
+                  {lang === 'RU'
+                    ? 'Создаёшь контент — монетизируешь его через видеошопинг'
+                    : 'Create content — monetize it through video shopping'}
+                </p>
+              </div>
+              <div className="border border-zinc-800 p-4">
+                <div className="font-mono text-[10px] text-radar mb-2 uppercase">{lang === 'RU' ? 'ПЛАТФОРМА РОСТА' : 'GROWTH PLATFORM'}</div>
+                <p className="font-mono text-sm text-zinc-400">
+                  {lang === 'RU'
+                    ? 'Молодые бренды получают поддержку и продвижение от WB'
+                    : 'Young brands receive support and promotion from WB'}
+                </p>
+              </div>
+            </div>
+            <p className="font-mono text-base md:text-lg leading-loose text-zinc-300 mt-8">
+              {lang === 'RU'
+                ? 'Мы построили яркую теплицу WB посреди фестиваля: лаундж с фиолетовыми пуфиками-кочанами, капустный боулинг, фотозона Wibes и экспозиция 6 брендов-участников «Платформы роста». Вся экосистема WB — в одном месте, на одном празднике.'
+                : 'We built a vibrant WB greenhouse in the heart of the festival: a lounge with purple cabbage-shaped bean bags, cabbage bowling, Wibes photo zone, and an expo of 6 brands from the "Growth Platform." The entire WB ecosystem — in one place, at one celebration.'}
+            </p>
+          </div>
+        </div>
+
+        {/* Photo: вайбик1 — full width */}
+        <div className="mb-8">
+          <div className="border border-concrete overflow-hidden">
+            <img
+              src={`${E}/%D0%B2%D0%B0%D0%B8%CC%86%D0%B1%D0%B8%D0%BA1.jpg`}
+              alt="WB теплица"
+              className="w-full h-auto"
+            />
+          </div>
+        </div>
+
+        {/* Photo grid: вайбс + 3.jpg + 5.jpg */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-16">
+          <div className="border border-concrete overflow-hidden">
+            <img
+              src={`${E}/%D0%B2%D0%B0%D0%B8%CC%86%D0%B1%D1%81.jpg`}
+              alt="Wibes фотозона"
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <div className="border border-concrete overflow-hidden">
+            <img
+              src={`${E}/3.jpg`}
+              alt="Крошево"
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <div className="border border-concrete overflow-hidden">
+            <img
+              src={`${E}/5.jpg`}
+              alt="Крошево WB"
+              className="w-full h-full object-cover"
+            />
+          </div>
+        </div>
+
+      </div>
+
+      {/* Bottom Navigation */}
+      {(() => {
+        const currentIndex = projects.findIndex(p => p.id === '12');
+        const prevProject = currentIndex > 0 ? projects[currentIndex - 1] : null;
+        const nextProject = currentIndex < projects.length - 1 ? projects[currentIndex + 1] : null;
+        return (
+          <div className="fixed bottom-0 left-0 w-full bg-void border-t border-concrete p-4 flex justify-between items-center z-20">
+            <button
+              onClick={() => prevProject && onSelect(prevProject)}
+              className={`flex items-center gap-4 group transition-colors ${!prevProject ? 'opacity-0 pointer-events-none' : 'text-zinc-500 hover:text-white'}`}
+            >
+              <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
+              <div className="hidden md:block text-left">
+                <div className="font-mono text-[10px] uppercase">Previous</div>
+                <div className="font-display text-sm truncate max-w-[150px]">{prevProject?.title}</div>
+              </div>
+            </button>
+            <div className="font-mono text-xs text-zinc-600">
+              {String(currentIndex + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}
+            </div>
+            <button
+              onClick={() => nextProject && onSelect(nextProject)}
+              className={`flex items-center gap-4 group transition-colors text-right ${!nextProject ? 'opacity-0 pointer-events-none' : 'text-zinc-500 hover:text-white'}`}
+            >
+              <div className="hidden md:block">
+                <div className="font-mono text-[10px] uppercase">Next</div>
+                <div className="font-display text-sm truncate max-w-[150px]">{nextProject?.title}</div>
+              </div>
+              <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+            </button>
+          </div>
+        );
+      })()}
+    </div>
+  );
+};
+
 // 8. Project Detail Overlay
 const ProjectDetail = ({ 
   project,
   projects,
   onClose,
   onSelect,
-  ui 
+  ui,
+  lang
 }: { 
   project: Project, 
   projects: Project[],
   onClose: () => void,
   onSelect: (p: Project) => void,
-  ui: typeof CONTENT.RU.UI 
+  ui: typeof CONTENT.RU.UI,
+  lang: string
 }) => {
   if (!project) return null;
 
-  // Custom layout for Neural Video project
   if (project.id === '11') {
     return <NeuralVideoDetail onClose={onClose} projects={projects} onSelect={onSelect} />;
+  }
+
+  if (project.id === '12') {
+    return <EventsDetail onClose={onClose} projects={projects} onSelect={onSelect} lang={lang} />;
   }
 
   // Navigation Logic
@@ -784,6 +1050,7 @@ const SLUG_MAP: Record<string, string> = {
   '9': 'zachetnaya-rasprodazha',
   '10': 'svezhiy-povod',
   '11': 'neyrovideo',
+  '12': 'iventy',
 };
 const ID_BY_SLUG = Object.fromEntries(Object.entries(SLUG_MAP).map(([id, slug]) => [slug, id]));
 
@@ -860,10 +1127,11 @@ const App = () => {
       {selectedProject && (
         <ProjectDetail 
             project={selectedProject} 
-            projects={content.PROJECTS} // Pass full list for navigation
-            onSelect={handleProjectSelect} // Pass selection handler for navigation
+            projects={content.PROJECTS}
+            onSelect={handleProjectSelect}
             onClose={handleCloseProject} 
-            ui={ui} 
+            ui={ui}
+            lang={lang}
         />
       )}
     </div>
