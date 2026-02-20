@@ -186,6 +186,21 @@ const PROJECTS_RU: Project[] = [
     imageUrl: 'https://picsum.photos/1920/1080?random=11',
     previewVideoUrl: 'https://storage.yandexcloud.net/vodichkacrew/%D0%B8%D0%B8%20%D0%B2%D0%B8%D0%B4%D0%BE%D1%81%D1%8B/neuralpreview.mp4',
   },
+  {
+    id: '12',
+    code: 'V_089',
+    client: 'EVENT PRODUCTION',
+    title: 'ИВЕНТЫ',
+    category: 'ИВЕНТЫ',
+    year: '2024–2025',
+    status: 'EVENT',
+    target: 'EVENT',
+    description: 'Концепции и продакшн мероприятий для крупных брендов.',
+    task: '',
+    idea: '',
+    specs: ['EVENT', 'CONCEPT', 'PRODUCTION', 'ACTIVATION'],
+    imageUrl: 'https://storage.yandexcloud.net/vodichkacrew/%D0%B8%D0%B2%D0%B5%D0%BD%D1%82%D1%8B/upload-30029aaf-d46c-4970-9435-eff16c647480.gif',
+  },
 ];
 
 const PROJECTS_EN: Project[] = [
@@ -372,6 +387,21 @@ const PROJECTS_EN: Project[] = [
     specs: ['AI', 'SUNO', 'MIDJOURNEY', 'KLING', 'RUNWAY'],
     imageUrl: 'https://picsum.photos/1920/1080?random=11',
     previewVideoUrl: 'https://storage.yandexcloud.net/vodichkacrew/%D0%B8%D0%B8%20%D0%B2%D0%B8%D0%B4%D0%BE%D1%81%D1%8B/neuralpreview.mp4',
+  },
+  {
+    id: '12',
+    code: 'V_089',
+    client: 'EVENT PRODUCTION',
+    title: 'EVENTS',
+    category: 'EVENTS',
+    year: '2024–2025',
+    status: 'EVENT',
+    target: 'EVENT',
+    description: 'Event concepts and production for major brands.',
+    task: '',
+    idea: '',
+    specs: ['EVENT', 'CONCEPT', 'PRODUCTION', 'ACTIVATION'],
+    imageUrl: 'https://storage.yandexcloud.net/vodichkacrew/%D0%B8%D0%B2%D0%B5%D0%BD%D1%82%D1%8B/upload-30029aaf-d46c-4970-9435-eff16c647480.gif',
   },
 ];
 
